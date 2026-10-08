@@ -31,6 +31,29 @@ export const NETWORKS: Record<Network, NetworkConfig> = {
 };
 
 /**
+ * Whether plaintext HTTP RPC connections are permitted for a network.
+ *
+ * Only the local development network runs over plain HTTP. Testnet and
+ * mainnet must always use HTTPS, so `allowHttp` is false for them.
+ */
+export function allowHttpForNetwork(network: Network): boolean {
+  return network === 'local';
+}
+
+/**
+ * Refuse to operate on mainnet unless the resolved RPC URL uses HTTPS.
+ *
+ * Throws when the network is mainnet and the RPC URL does not start with
+ * `https://`, so a misconfigured plaintext endpoint fails fast instead of
+ * submitting signed transactions over an insecure connection.
+ */
+export function assertMainnetRpcIsSecure(network: Network, rpcUrl: string): void {
+  if (network === 'mainnet' && !rpcUrl.startsWith('https://')) {
+    throw new Error(`Refusing to use a non-HTTPS RPC URL on mainnet: ${rpcUrl}`);
+  }
+}
+
+/**
  * Get network configuration by name
  */
 export function getNetwork(network: Network): NetworkConfig {

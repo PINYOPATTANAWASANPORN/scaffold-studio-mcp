@@ -3,6 +3,7 @@
  */
 import { Client as GovernanceContract } from '../../packages/merkle_voting_example/dist/index.js';
 import type { StellarClient } from '../core/index.js';
+import { allowHttpForNetwork } from '../registry/index.js';
 
 export class GovernanceContractClient {
   private contract: GovernanceContract;
@@ -15,7 +16,7 @@ export class GovernanceContractClient {
       contractId: contractAddress,
       networkPassphrase: network.networkPassphrase,
       rpcUrl: network.rpcUrl,
-      allowHttp: true, // Allow HTTP for both local and testnet
+      allowHttp: allowHttpForNetwork(network.name),
       signTransaction: async (xdr: string) => {
         return { signedTxXdr: await stellarClient.signTransaction(xdr) };
       },

@@ -14,7 +14,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import { Keypair, rpc } from '@stellar/stellar-sdk';
 import { StellarClient } from './core/WalletClientBase.js';
-import { getNetwork, DEFAULT_NETWORK } from './registry/networks.js';
+import { getNetwork, DEFAULT_NETWORK, allowHttpForNetwork, assertMainnetRpcIsSecure } from './registry/networks.js';
 import type { Network, StellarContext } from './core/types.js';
 import { TokenPlugin } from './plugins/token/token.plugin.js';
 import { NFTPlugin } from './plugins/nft/nft.plugin.js';
@@ -62,9 +62,9 @@ function initializeStellarClient(secretKey: string, network: Network): StellarCl
   const networkConfig = getNetwork(network);
   const keypair = Keypair.fromSecret(secretKey);
 
-  // Allow HTTP for local network (localhost)
-  // Temporarily allow HTTP for testnet to debug connection issues
-  const rpcOptions = { allowHttp: true };
+  // Plaintext HTTP is only permitted for the local development network.
+  assertMainnetRpcIsSecure(network, networkConfig.rpcUrl);
+  const rpcOptions = { allowHttp: allowHttpForNetwork(network) };
   const rpcServer = new rpc.Server(networkConfig.rpcUrl, rpcOptions);
 
   const context: StellarContext = {

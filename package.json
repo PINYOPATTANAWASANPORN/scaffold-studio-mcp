@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "setup:claude": "./setup-mcp.sh --claude",
     "setup:cursor": "./setup-mcp.sh --cursor",
-    "setup:code": "./setup-mcp.sh --code"
+    "setup:code": "./setup-mcp.sh --code",
+    "test": "node --test test/allowhttp.test.ts"
   },
   "keywords": [
     "mcp",

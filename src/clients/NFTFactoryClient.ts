@@ -11,7 +11,7 @@ import {
   type NFTType,
 } from '../../packages/nft_factory/dist/index.js';
 import type { StellarClient } from '../core/index.js';
-import { getContractAddress } from '../registry/index.js';
+import { getContractAddress, allowHttpForNetwork } from '../registry/index.js';
 
 /**
  * NFTFactory client wrapper
@@ -28,7 +28,7 @@ export class NFTFactoryClient {
       contractId,
       networkPassphrase: network.networkPassphrase,
       rpcUrl: network.rpcUrl,
-      allowHttp: true, // Allow HTTP for both local and testnet
+      allowHttp: allowHttpForNetwork(network.name),
       signTransaction: async (xdr: string) => {
         return { signedTxXdr: await stellarClient.signTransaction(xdr) };
       },

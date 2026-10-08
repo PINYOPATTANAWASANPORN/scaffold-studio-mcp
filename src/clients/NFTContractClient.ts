@@ -6,6 +6,7 @@
 
 import { Client as NFTContract } from '../../packages/nft_enumerable_example/dist/index.js';
 import type { StellarClient } from '../core/index.js';
+import { allowHttpForNetwork } from '../registry/index.js';
 
 /**
  * NFT Contract client wrapper for interacting with deployed NFTs
@@ -21,7 +22,7 @@ export class NFTContractClient {
       contractId: contractAddress,
       networkPassphrase: network.networkPassphrase,
       rpcUrl: network.rpcUrl,
-      allowHttp: true, // Allow HTTP for both local and testnet
+      allowHttp: allowHttpForNetwork(network.name),
       signTransaction: async (xdr: string) => {
         return { signedTxXdr: await stellarClient.signTransaction(xdr) };
       },

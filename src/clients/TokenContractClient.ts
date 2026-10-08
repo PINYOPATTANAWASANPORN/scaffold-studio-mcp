@@ -7,6 +7,7 @@
 
 import { Client as TokenContract } from '../../packages/fungible_pausable_example/dist/index.js';
 import type { StellarClient } from '../core/index.js';
+import { allowHttpForNetwork } from '../registry/index.js';
 
 /**
  * Token Contract client wrapper for interacting with deployed tokens
@@ -22,7 +23,7 @@ export class TokenContractClient {
       contractId: contractAddress,
       networkPassphrase: network.networkPassphrase,
       rpcUrl: network.rpcUrl,
-      allowHttp: true, // Allow HTTP for both local and testnet
+      allowHttp: allowHttpForNetwork(network.name),
       signTransaction: async (xdr: string) => {
         return { signedTxXdr: await stellarClient.signTransaction(xdr) };
       },

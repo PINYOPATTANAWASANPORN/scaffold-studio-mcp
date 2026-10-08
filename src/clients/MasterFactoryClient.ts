@@ -9,7 +9,7 @@ import {
   type FactoryInfo,
 } from '../../packages/master_factory/dist/index.js';
 import type { StellarClient } from '../core/index.js';
-import { getContractAddress } from '../registry/index.js';
+import { getContractAddress, allowHttpForNetwork } from '../registry/index.js';
 
 /**
  * MasterFactory client wrapper
@@ -26,7 +26,7 @@ export class MasterFactoryClient {
       contractId,
       networkPassphrase: network.networkPassphrase,
       rpcUrl: network.rpcUrl,
-      allowHttp: true, // Allow HTTP for both local and testnet
+      allowHttp: allowHttpForNetwork(network.name),
       signTransaction: async (xdr: string) => {
         return { signedTxXdr: await stellarClient.signTransaction(xdr) };
       },
