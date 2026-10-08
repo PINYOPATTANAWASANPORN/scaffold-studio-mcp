@@ -8,7 +8,6 @@
 export {
   generateSalt,
   generateDeterministicSalt,
-  isValidSalt as isValidSaltFormat,
   generateMultipleSalts,
 } from './salt.js';
 

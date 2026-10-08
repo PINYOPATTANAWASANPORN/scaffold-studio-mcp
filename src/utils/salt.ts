@@ -25,15 +25,6 @@ export function generateDeterministicSalt(seed: string): string {
 }
 
 /**
- * Validate salt format
- * @param salt - Salt to validate
- * @returns true if valid 32-byte hex string
- */
-export function isValidSalt(salt: string): boolean {
-  return /^[0-9a-f]{64}$/i.test(salt);
-}
-
-/**
  * Generate multiple unique salts
  * @param count - Number of salts to generate
  * @returns Array of unique salt strings
