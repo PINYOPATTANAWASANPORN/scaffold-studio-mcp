@@ -4,7 +4,7 @@
  * Validates addresses, amounts, and configurations before deployment
  */
 
-import { Address, StrKey } from '@stellar/stellar-sdk';
+import { StrKey } from '@stellar/stellar-sdk';
 
 /**
  * Validate Stellar address format

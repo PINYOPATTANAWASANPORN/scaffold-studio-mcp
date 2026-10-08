@@ -8,8 +8,6 @@ import { Tool } from '../../core/Tool.decorator.js';
 import type { StellarClient, ToolResult } from '../../core/index.js';
 import { TokenFactoryClient, type TokenConfig, type TokenType } from '../../clients/index.js';
 import type { DeployTokenParams, GetTokensByTypeParams, GetTokensByAdminParams } from './parameters.js';
-import { option, some, none } from '../../core/Option.js';
-import type { i128 } from '@stellar/stellar-sdk/contract';
 import { serializeBigInt } from '../../utils/serialization.js';
 import { randomBytes } from 'crypto';
 

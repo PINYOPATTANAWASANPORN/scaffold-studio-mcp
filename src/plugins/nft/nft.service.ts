@@ -8,7 +8,6 @@ import { Tool } from '../../core/Tool.decorator.js';
 import type { StellarClient, ToolResult } from '../../core/index.js';
 import { NFTFactoryClient, type NFTConfig, type NFTType } from '../../clients/index.js';
 import type { DeployNFTParams, GetNFTsByTypeParams, GetNFTsByOwnerParams } from './parameters.js';
-import { option } from '../../core/Option.js';
 import { serializeBigInt } from '../../utils/serialization.js';
 import { randomBytes } from 'crypto';
 
