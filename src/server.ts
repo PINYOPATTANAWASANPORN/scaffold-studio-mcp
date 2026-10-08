@@ -26,7 +26,7 @@ import { GovernanceContractPlugin } from './plugins/governance-contract/governan
 import { RegistryPlugin } from './plugins/registry/registry.plugin.js';
 import { UtilitiesPlugin } from './plugins/utilities/utilities.plugin.js';
 import { zodToJsonSchema } from 'zod-to-json-schema';
-import { serializeBigInt } from './utils/serialization.js';
+import { createCallToolHandler } from './core/call-tool-handler.js';
 import dotenv from 'dotenv';
 
 // Load environment variables silently (suppress verbose output for MCP stdio communication)
@@ -132,49 +132,7 @@ async function main() {
     });
 
     // Register call_tool handler
-    server.setRequestHandler(CallToolRequestSchema, async (request) => {
-      const { name, arguments: args } = request.params;
-
-      // Find the tool
-      const tool = allTools.find((t) => t.name === name);
-      if (!tool) {
-        throw new Error(`Tool not found: ${name}`);
-      }
-
-      try {
-        // Execute the tool
-        const result = await tool.execute(args || {});
-
-        // Serialize BigInt values to strings before JSON.stringify
-        const serializedResult = serializeBigInt(result);
-
-        return {
-          content: [
-            {
-              type: 'text',
-              text: JSON.stringify(serializedResult, null, 2),
-            },
-          ],
-        };
-      } catch (error: any) {
-        return {
-          content: [
-            {
-              type: 'text',
-              text: JSON.stringify(
-                {
-                  success: false,
-                  error: error.message || 'Tool execution failed',
-                },
-                null,
-                2
-              ),
-            },
-          ],
-          isError: true,
-        };
-      }
-    });
+    server.setRequestHandler(CallToolRequestSchema, createCallToolHandler(allTools));
 
     // Connect to STDIO transport
     const transport = new StdioServerTransport();
