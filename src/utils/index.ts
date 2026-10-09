@@ -43,7 +43,6 @@ export {
   buildGovernanceConfig,
   buildCappedTokenConfig,
   buildSimpleTokenConfig,
-  buildEnumerableNFTConfig,
   buildMerkleVotingConfig,
   formatTokenAmount,
   parseTokenAmount,
