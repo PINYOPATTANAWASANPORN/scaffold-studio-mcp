@@ -17,7 +17,7 @@
     "setup:claude": "./setup-mcp.sh --claude",
     "setup:cursor": "./setup-mcp.sh --cursor",
     "setup:code": "./setup-mcp.sh --code",
-    "test": "node --test test/allowhttp.test.ts"
+    "test": "node --test test/allowhttp.test.ts test/salt.test.ts"
   },
   "keywords": [
     "mcp",
