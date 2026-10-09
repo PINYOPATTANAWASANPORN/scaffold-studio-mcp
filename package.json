@@ -9,15 +9,14 @@
   },
   "scripts": {
     "build:bindings": "node scripts/build-bindings.mjs",
-    "test": "tsc --project tsconfig.test.json && node --test test/call-tool-handler.test.mjs",
+    "test": "node --test test/allowhttp.test.ts test/salt.test.ts test/utilities.service.test.ts",
     "build": "tsup",
     "dev": "tsup --watch",
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit",
     "setup:claude": "./setup-mcp.sh --claude",
     "setup:cursor": "./setup-mcp.sh --cursor",
-    "setup:code": "./setup-mcp.sh --code",
-    "test": "node --test test/allowhttp.test.ts test/salt.test.ts"
+    "setup:code": "./setup-mcp.sh --code"
   },
   "keywords": [
     "mcp",
