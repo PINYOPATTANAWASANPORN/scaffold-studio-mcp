@@ -23,7 +23,7 @@ Model Context Protocol backend that turns natural language into Stellar contract
 A Model Context Protocol (MCP) server that enables AI assistants to interact with the Stellar blockchain through natural language commands. The server provides comprehensive smart contract deployment, token operations, NFT management, governance execution, and registry tooling so builders can orchestrate Stellar dApps conversationally.
 
 **What It Does:**
-- Exposes 80+ blockchain operations as MCP tools
+- Exposes 72 blockchain operations as MCP tools
 - Manages factory contract interactions (Token, NFT, Governance)
 - Handles transaction building, simulation, and signing
 - Generates merkle proofs for governance voting
@@ -68,7 +68,7 @@ graph TB
 
     subgraph "MCP Server Layer"
         MCP[MCP Server Core]
-        TR[Tool Registry<br/>80+ Tools]
+        TR[Tool Registry<br/>72 Tools]
         SC[Stellar Client<br/>SDK Wrapper]
     end
 
@@ -174,7 +174,12 @@ The server uses a modular plugin system for organizing tools by domain:
 - Amount formatting
 - Salt generation
 
-**Total: 80+ Tools**
+**Total: 72 Tools**
+
+> **Note:** The verified count of 72 tools corresponds to all registered `@Tool` methods across `src/plugins/**`. It can be re-derived at any time with:
+> ```bash
+> git grep -c "@Tool(" src/plugins
+> ```
 
 ## Features
 
@@ -557,18 +562,18 @@ pnpm build
 # "Deploy a test token named TestToken with symbol TST"
 ```
 
-### Testing Status
+### Implementation Status
 
-All 80+ MCP tools have been implemented and tested on Stellar testnet, including:
-- ✅ Factory deployment tracking
-- ✅ Token deployment and queries
-- ✅ NFT deployment and queries
-- ✅ Governance deployment and queries
-- ✅ Registry publishing and deployment
-- ✅ Token contract operations (15 tools)
-- ✅ NFT contract operations (17 tools)
-- ✅ Governance contract operations (3 tools)
-- ✅ Utility functions (15 tools)
+All 72 MCP tools have been implemented across the plugin modules:
+- Factory deployment tracking (1 tool)
+- Token deployment and queries (5 tools)
+- NFT deployment and queries (5 tools)
+- Governance deployment and queries (5 tools)
+- Registry publishing and deployment (6 tools)
+- Token contract operations (15 tools)
+- NFT contract operations (17 tools)
+- Governance contract operations (3 tools)
+- Utility functions (15 tools)
 
 ## Security Considerations
 
